@@ -1,0 +1,93 @@
+version: '3.8'
+
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.7.0
+    container_name: es-tibetan-test
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    volumes:
+      - es-data:/usr/share/elasticsearch/data
+      - ./releases/v1.0-es8.7+:/tmp/plugins:ro
+      - ./docker/init-plugin.sh:/usr/local/bin/init-plugin.sh:ro
+    ports:
+      - "9200:9200"
+    networks:
+      - elastic-net
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:9200/_cluster/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+    command: >
+      bash -c "
+        /usr/local/bin/init-plugin.sh &&
+        /usr/local/bin/docker-entrypoint.sh
+      "
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.7.0
+    container_name: kibana-tibetan-test
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+      - xpack.security.enabled=false
+    ports:
+      - "5601:5601"
+    networks:
+      - elastic-net
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+
+  setup:
+    image: curlimages/curl:latest
+    container_name: es-setup
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    volumes:
+      - ./docker/setup-index.sh:/setup-index.sh:ro
+      - ./docker/sample-data.json:/sample-data.json:ro
+    networks:
+      - elastic-net
+    command: sh /setup-index.sh
+    restart: "no"
+
+  qa-import:
+    image: curlimages/curl:latest
+    container_name: es-qa-import
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    volumes:
+      - ./docker/import-qa-data.sh:/import-qa-data.sh:ro
+      - ./docker/tibetan-qa-data.json:/tibetan-qa-data.json:ro
+    networks:
+      - elastic-net
+    command: sh /import-qa-data.sh
+    restart: "no"
+
+  medical-qa-import:
+    image: curlimages/curl:latest
+    container_name: es-medical-qa-import
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    volumes:
+      - ./docker/import-medical-qa.sh:/import-medical-qa.sh:ro
+      - ./docker/tibetan-medical-qa-data.json:/tibetan-medical-qa-data.json:ro
+    networks:
+      - elastic-net
+    command: sh /import-medical-qa.sh
+    restart: "no"
+
+volumes:
+  es-data:
+    driver: local
+
+networks:
+  elastic-net:
+    driver: bridge
+

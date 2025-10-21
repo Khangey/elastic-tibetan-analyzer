@@ -1,0 +1,62 @@
+# Compiled class file
+*.class
+
+# Log file
+*.log
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files (keep releases directory)
+*.war
+*.nar
+*.ear
+*.tar.gz
+*.rar
+
+# Virtual machine crash logs
+hs_err_pid*
+
+# Gradle
+.gradle
+build/
+!build/distributions/*.zip
+
+# Allow releases directory
+!releases/
+!releases/**/*.jar
+!releases/**/*.zip
+
+# Eclipse
+.project
+.classpath
+.settings/
+bin/
+
+# IntelliJ IDEA
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+
+# macOS
+.DS_Store
+
+# Python
+__pycache__/
+*.py[cod]
+*.so
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*~
+
+# Docker runtime data (ignore runtime volumes)
+.docker-data/
+

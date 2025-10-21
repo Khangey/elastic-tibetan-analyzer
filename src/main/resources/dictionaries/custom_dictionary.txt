@@ -1,0 +1,6 @@
+# Custom Tibetan Dictionary
+# Add your custom words here, one per line
+# Example:
+# སློབ་ཕྲུག
+# དཔེ་དེབ
+

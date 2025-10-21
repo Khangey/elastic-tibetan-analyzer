@@ -1,0 +1,14 @@
+Elasticsearch Tibetan Analyzer Plugin
+Copyright 2024 Tocharian
+
+This product includes software developed by The Apache Software Foundation (http://www.apache.org/).
+
+This project uses dictionary data derived from the tibetan-js-segmenter project, which contains comprehensive Tibetan vocabulary compiled from various linguistic resources.
+
+Dictionary Data Sources:
+- tibetan-js-segmenter: https://github.com/TocharianOU/tibetan-js-segmenter
+- Based on comprehensive Tibetan lexical databases and linguistic research
+
+The tokenization algorithm is based on traditional longest-match word segmentation approaches commonly used in Tibetan natural language processing.
+
+Licensed under the Apache License, Version 2.0.
