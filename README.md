@@ -230,7 +230,7 @@ Apache License 2.0
 
 ## Contributing
 
-Issues and pull requests are welcome at: https://github.com/TocharianOU/elastic-tibetan-analyzer
+Issues and pull requests are welcome at: https://github.com/TocharianOU/elastic-tibetan-analyzer｜https://github.com/khangey/elastic-tibetan-analyzer
 
 ---
 
