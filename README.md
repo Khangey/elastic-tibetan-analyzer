@@ -203,7 +203,6 @@ Add custom words to `src/main/resources/dictionaries/custom_dictionary.txt` (one
 
 ```
 བོད་ལྗོངས་
-རྒྱལ་ས་
 ལྷ་ས་
 ```
 
